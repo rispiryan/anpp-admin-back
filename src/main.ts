@@ -10,6 +10,16 @@ async function start() {
   const config = new DocumentBuilder()
     .setTitle('Anpp project')
     .setDescription('REST Documentation')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'Bearer',
+        bearerFormat: 'JWT',
+        name: 'Authorization',
+        in: 'header',
+      },
+      'access-token',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
