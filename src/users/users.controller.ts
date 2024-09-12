@@ -20,6 +20,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles-auth.decorator';
 import { AddRoleDto } from './dto/add-role.dto';
 import { BaneUserDto } from './dto/bane-user.dto';
+import { RoleType } from '../constants/userRoles';
 // import { ValidationPipe } from '../pipes/validation.pipe';
 
 @ApiBearerAuth('access-token')
@@ -38,7 +39,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Get users' })
   @ApiResponse({ status: 200, type: [User] })
   // @UseGuards(JwtAuthGuard)
-  @Roles('ADMIN')
+  @Roles(RoleType.ADMIN)
   @UseGuards(RolesGuard)
   @Get()
   getAll() {
@@ -47,7 +48,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Give role' })
   @ApiResponse({ status: 200 })
   // @UseGuards(JwtAuthGuard)
-  @Roles('ADMIN')
+  @Roles(RoleType.ADMIN)
   @UseGuards(RolesGuard)
   @Post('/role')
   addRole(@Body() dto: AddRoleDto) {
@@ -57,7 +58,7 @@ export class UsersController {
   @ApiOperation({ summary: 'bane user' })
   @ApiResponse({ status: 200 })
   // @UseGuards(JwtAuthGuard)
-  @Roles('ADMIN')
+  @Roles(RoleType.ADMIN)
   @UseGuards(RolesGuard)
   @Post('/ban')
   ban(@Body() dto: BaneUserDto) {

@@ -3,17 +3,23 @@ import {
   Controller,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { CreateCooperationDto } from './dto/create-cooperation.dto';
 import { CooperationService } from './cooperation.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { Roles } from '../auth/roles-auth.decorator';
+import { RolesGuard } from '../auth/roles.guard';
+import { RoleType } from '../constants/userRoles';
+@ApiBearerAuth('access-token')
 @ApiTags('Cooperation')
 @Controller('cooperation')
 export class CooperationController {
   constructor(private cooperationService: CooperationService) {}
-  @Post('create')
+  @Roles(RoleType.ADMIN)
+  @UseGuards(RolesGuard)
   @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -27,6 +33,7 @@ export class CooperationController {
       },
     },
   })
+  @Post('create')
   async createCooperation(
     @Body() dto: CreateCooperationDto,
     @UploadedFile() image,
