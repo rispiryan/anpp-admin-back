@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   UploadedFile,
   UseGuards,
@@ -13,6 +14,7 @@ import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/roles-auth.decorator';
 import { RolesGuard } from '../auth/roles.guard';
 import { RoleType } from '../constants/userRoles';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 @ApiBearerAuth('access-token')
 @ApiTags('Cooperation')
 @Controller('cooperation')
@@ -39,5 +41,11 @@ export class CooperationController {
     @UploadedFile() image,
   ) {
     return this.cooperationService.create(dto, image);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async findAll() {
+    return this.cooperationService.findAll();
   }
 }

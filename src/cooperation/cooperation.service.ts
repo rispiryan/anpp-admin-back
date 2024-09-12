@@ -20,4 +20,8 @@ export class CooperationService {
 
     return coop;
   }
+
+  async findAll() {
+    return await this.cooperationRepository.findAll();
+  }
 }
