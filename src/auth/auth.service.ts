@@ -17,7 +17,15 @@ export class AuthService {
   ) {}
   async login(userDto: CreateUserDto) {
     const user = await this.validateUser(userDto);
-    return this.generateToken(user);
+    const { authToken } = await this.generateToken(user);
+    return {
+      authToken,
+      user: {
+        email: user.email,
+        id: user.id,
+        role: user.roles,
+      },
+    };
   }
   async registration(userDto: CreateUserDto) {
     const condidate = await this.userService.getUserByEmail(userDto.email);
@@ -36,13 +44,15 @@ export class AuthService {
     const payload = { email: user.email, id: user.id, roles: user.roles };
 
     return {
-      token: this.jwtService.sign(payload),
+      authToken: this.jwtService.sign(payload),
     };
   }
 
   private async validateUser(userDto: CreateUserDto) {
     const user = await this.userService.getUserByEmail(userDto.email);
-
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
     const passwordEquals = await bcrypt.compare(
       userDto.password,
       user.password,

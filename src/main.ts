@@ -6,6 +6,12 @@ import { ValidationPipe } from './pipes/validation.pipe';
 async function start() {
   const PORT = process.env.PORT || 8000;
   const app = await NestFactory.create(AppModule);
+  console.log(process.env, 2323);
+  app.enableCors({
+    origin: process.env.FRONT_DOMAIN,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Anpp project')

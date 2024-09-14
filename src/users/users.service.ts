@@ -52,4 +52,8 @@ export class UsersService {
     await user.save();
     return user;
   }
+
+  async profile(user) {
+    return user;
+  }
 }

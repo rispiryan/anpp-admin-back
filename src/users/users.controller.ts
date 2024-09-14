@@ -4,6 +4,7 @@ import {
   Post,
   Get,
   UseGuards,
+  Req,
   // UsePipes,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -15,7 +16,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { User } from './users.model';
-// import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles-auth.decorator';
 import { AddRoleDto } from './dto/add-role.dto';
@@ -63,5 +64,12 @@ export class UsersController {
   @Post('/ban')
   ban(@Body() dto: BaneUserDto) {
     return this.userService.ban(dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/profile')
+  profile(@Req() request) {
+    const user = request.user;
+    return this.userService.profile(user);
   }
 }
