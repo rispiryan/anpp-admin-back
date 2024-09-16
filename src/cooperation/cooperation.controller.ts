@@ -20,7 +20,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 @Controller('cooperation')
 export class CooperationController {
   constructor(private cooperationService: CooperationService) {}
-  @Roles(RoleType.ADMIN)
+  @Roles(RoleType.USER)
   @UseGuards(RolesGuard)
   @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
@@ -47,5 +47,10 @@ export class CooperationController {
   @Get()
   async findAll() {
     return this.cooperationService.findAll();
+  }
+  @UseGuards(JwtAuthGuard)
+  @Post('delete')
+  async delete(@Body() dto: { id: string; image: string }) {
+    return this.cooperationService.delete(dto);
   }
 }

@@ -24,4 +24,17 @@ export class CooperationService {
   async findAll() {
     return await this.cooperationRepository.findAll();
   }
+
+  async delete({ id, image }: { id: string; image: string }) {
+    const deletedCount = await this.cooperationRepository.destroy({
+      where: { id },
+    });
+
+    await this.fileService.deleteFile(image);
+    if (deletedCount === 0) {
+      throw new Error(`Cooperation with id ${id} not found`);
+    }
+
+    return await this.findAll();
+  }
 }
