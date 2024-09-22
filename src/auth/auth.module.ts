@@ -13,7 +13,7 @@ import * as process from 'process';
     JwtModule.register({
       secret: process.env.ACCESS_TOKEN_SECRET || 'ACCESS_SECRET',
       signOptions: {
-        expiresIn: '1h',
+        expiresIn: '8h',
       },
     }),
   ],
