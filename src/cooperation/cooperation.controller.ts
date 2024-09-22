@@ -19,13 +19,11 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-// import { Roles } from '../auth/roles-auth.decorator';
-// import { RolesGuard } from '../auth/roles.guard';
-// import { RoleType } from '../constants/userRoles';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ParamDTO, UpdateCooperationDto } from './dto/update-cooperation.dto';
 @ApiBearerAuth('access-token')
 @ApiTags('Cooperation')
+@UseGuards(JwtAuthGuard)
 @Controller('cooperation')
 export class CooperationController {
   constructor(private cooperationService: CooperationService) {}
@@ -52,7 +50,6 @@ export class CooperationController {
     return this.cooperationService.create(dto, image);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll() {
     return this.cooperationService.findAll();

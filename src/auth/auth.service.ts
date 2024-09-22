@@ -9,13 +9,14 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { User } from '../users/users.model';
+import { GetUserDtoUserDto } from '../users/dto/get-user.dto';
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UsersService,
     private jwtService: JwtService,
   ) {}
-  async login(userDto: CreateUserDto) {
+  async login(userDto: GetUserDtoUserDto) {
     const user = await this.validateUser(userDto);
     const { authToken } = await this.generateToken(user);
     return {
@@ -41,14 +42,19 @@ export class AuthService {
   }
 
   private async generateToken(user: User) {
-    const payload = { email: user.email, id: user.id, roles: user.roles };
+    const payload = {
+      email: user.email,
+      id: user.id,
+      roles: user.roles,
+      fullName: user.fullName,
+    };
 
     return {
       authToken: this.jwtService.sign(payload),
     };
   }
 
-  private async validateUser(userDto: CreateUserDto) {
+  private async validateUser(userDto: GetUserDtoUserDto) {
     const user = await this.userService.getUserByEmail(userDto.email);
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
