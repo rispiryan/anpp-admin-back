@@ -52,7 +52,7 @@ import * as path from 'path';
       database:
         process.env.NODE_ENV !== 'development'
           ? process.env.POSTGRES_DB
-          : 'railway',
+          : 'junction.proxy.rlwy.net',
       models: [User, Role, UserRoles, Cooperation],
       autoLoadModels: true,
     }),
