@@ -26,7 +26,7 @@ import * as path from 'path';
     SequelizeModule.forRoot({
       // TODO remember to delete it after correct deployment
       ...(process.env.NODE_ENV !== 'development' && {
-        uri: process.env.POSTGRES_DB_URL,
+        uri: 'postgresql://postgres:GyZoGEdHQsXeAJlEUQDrpGslXdICllTH@junction.proxy.rlwy.net:44010/railway',
       }),
       dialect: 'postgres',
       host: process.env.POSTGRES_HOST,
