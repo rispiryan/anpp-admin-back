@@ -10,10 +10,7 @@ async function start() {
   const app = await NestFactory.create(AppModule);
   console.log(process.env, 2323);
   app.enableCors({
-    origin: [
-      process.env.FRONT_DOMAIN,
-      'https://anpp-admin-back-production.up.railway.app',
-    ],
+    origin: [process.env.FRONT_DOMAIN, 'https://https://anpp-admin.vercel.app'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
