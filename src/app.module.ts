@@ -28,9 +28,9 @@ import * as path from 'path';
     }),
     SequelizeModule.forRoot({
       // TODO remember to delete it after correct deployment
-      ...(process.env.NODE_ENV !== 'development' && {
-        uri: 'postgresql://postgres:GyZoGEdHQsXeAJlEUQDrpGslXdICllTH@junction.proxy.rlwy.net:44010/railway',
-      }),
+      // ...(process.env.NODE_ENV !== 'development' && {
+      uri: 'postgresql://postgres:GyZoGEdHQsXeAJlEUQDrpGslXdICllTH@junction.proxy.rlwy.net:44010/railway',
+      // }),
       dialect: 'postgres',
       host:
         process.env.NODE_ENV !== 'development'
