@@ -24,6 +24,7 @@ import * as path from 'path';
       rootPath: path.resolve(__dirname, 'static'),
     }),
     SequelizeModule.forRoot({
+      // TODO remember to delete it after correct deployment
       ...(process.env.NODE_ENV !== 'development' && {
         uri: process.env.POSTGRES_DB_URL,
       }),
