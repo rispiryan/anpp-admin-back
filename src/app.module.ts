@@ -24,6 +24,9 @@ import * as path from 'path';
       rootPath: path.resolve(__dirname, 'static'),
     }),
     SequelizeModule.forRoot({
+      ...(process.env.NODE_ENV !== 'development' && {
+        uri: process.env.POSTGRES_DB_URL,
+      }),
       dialect: 'postgres',
       host: process.env.POSTGRES_HOST,
       port: Number(process.env.POSTGRES_PORT),
@@ -41,3 +44,8 @@ import * as path from 'path';
   ],
 })
 export class AppModule {}
+console.log('Connecting to DB with the following details:');
+console.log('Host:', process.env.POSTGRES_HOST);
+console.log('Port:', process.env.POSTGRES_PORT);
+console.log('User:', process.env.POSTGRES_USER);
+console.log('Database:', process.env.POSTGRES_DB);
