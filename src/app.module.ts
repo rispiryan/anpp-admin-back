@@ -18,41 +18,22 @@ import * as path from 'path';
   providers: [],
   imports: [
     ConfigModule.forRoot({
-      envFilePath:
-        process.env.NODE_ENV !== 'development'
-          ? '.env'
-          : `.${process.env.NODE_ENV}.env`,
+      envFilePath: `.${process.env.NODE_ENV}.env`,
     }),
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static'),
     }),
     SequelizeModule.forRoot({
       // TODO remember to delete it after correct deployment
-      // ...(process.env.NODE_ENV !== 'development' && {
-      uri: 'postgresql://postgres:GyZoGEdHQsXeAJlEUQDrpGslXdICllTH@junction.proxy.rlwy.net:44010/railway',
-      // }),
+      ...(process.env.NODE_ENV !== 'development' && {
+        uri: 'postgresql://postgres:GyZoGEdHQsXeAJlEUQDrpGslXdICllTH@junction.proxy.rlwy.net:44010/railway',
+      }),
       dialect: 'postgres',
-      host:
-        process.env.NODE_ENV !== 'development'
-          ? process.env.POSTGRES_HOST
-          : 'postgres.railway.internal',
-      port: Number(
-        process.env.NODE_ENV !== 'development'
-          ? process.env.POSTGRES_PORT
-          : 5432,
-      ),
-      username:
-        process.env.NODE_ENV !== 'development'
-          ? process.env.POSTGRES_USER
-          : 'postgres',
-      password:
-        process.env.NODE_ENV !== 'development'
-          ? process.env.POSTGRES_PASSWORD
-          : 'GyZoGEdHQsXeAJlEUQDrpGslXdICllTH',
-      database:
-        process.env.NODE_ENV !== 'development'
-          ? process.env.POSTGRES_DB
-          : 'junction.proxy.rlwy.net',
+      host: process.env.POSTGRES_HOST,
+      port: Number(process.env.POSTGRES_PORT),
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
       models: [User, Role, UserRoles, Cooperation],
       autoLoadModels: true,
     }),
@@ -64,8 +45,3 @@ import * as path from 'path';
   ],
 })
 export class AppModule {}
-console.log('Connecting to DB with the following details:');
-console.log('Host:', process.env.POSTGRES_HOST);
-console.log('Port:', process.env.POSTGRES_PORT);
-console.log('User:', process.env.POSTGRES_USER);
-console.log('Database:', process.env.POSTGRES_DB);
