@@ -29,11 +29,27 @@ import * as path from 'path';
         uri: 'postgresql://postgres:GyZoGEdHQsXeAJlEUQDrpGslXdICllTH@junction.proxy.rlwy.net:44010/railway',
       }),
       dialect: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: Number(process.env.POSTGRES_PORT),
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DB,
+      host:
+        process.env.NODE_ENV !== 'development'
+          ? process.env.POSTGRES_HOST
+          : 'postgres.railway.internal',
+      port: Number(
+        process.env.NODE_ENV !== 'development'
+          ? process.env.POSTGRES_PORT
+          : 5432,
+      ),
+      username:
+        process.env.NODE_ENV !== 'development'
+          ? process.env.POSTGRES_USER
+          : 'postgres',
+      password:
+        process.env.NODE_ENV !== 'development'
+          ? process.env.POSTGRES_PASSWORD
+          : 'GyZoGEdHQsXeAJlEUQDrpGslXdICllTH',
+      database:
+        process.env.NODE_ENV !== 'development'
+          ? process.env.POSTGRES_DB
+          : 'railway',
       models: [User, Role, UserRoles, Cooperation],
       autoLoadModels: true,
     }),
