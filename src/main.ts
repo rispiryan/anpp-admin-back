@@ -14,6 +14,11 @@ async function start() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
+  app.enableCors({
+    origin: 'https://anpp-admin-back-production.up.railway.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Anpp project')
