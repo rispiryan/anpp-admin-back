@@ -12,7 +12,9 @@ import { CooperationModule } from './cooperation/cooperation.module';
 import { Cooperation } from './cooperation/cooperation.model';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { VacanciesModule } from './vacancies/vacancies.module';
 import * as path from 'path';
+import { Vacancies } from './vacancies/vacancies.model';
 @Module({
   controllers: [],
   providers: [],
@@ -34,14 +36,16 @@ import * as path from 'path';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, Cooperation],
+      models: [User, Role, UserRoles, Cooperation, Vacancies],
       autoLoadModels: true,
+      synchronize: true,
     }),
     UsersModule,
     RolesModule,
     AuthModule,
     CooperationModule,
     FilesModule,
+    VacanciesModule,
   ],
 })
 export class AppModule {}

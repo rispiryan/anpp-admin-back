@@ -22,7 +22,6 @@ export class FilesService {
   }
 
   async deleteFile(fileName: string): Promise<void> {
-    console.log(fileName);
     try {
       const filePath = path.resolve(__dirname, '..', 'static', fileName);
       if (fs.existsSync(filePath)) {

@@ -18,12 +18,26 @@ export class Cooperation extends Model<Cooperation, CooperationCreationAttrs> {
   })
   id: number;
 
-  @ApiProperty({ example: 'Title', description: 'title' })
+  @ApiProperty({ example: 'English Title', description: 'English title' })
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  en_title: string;
+
+  @ApiProperty({ example: 'Russia Title', description: 'Russia title' })
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  ru_title: string;
+
+  @ApiProperty({ example: 'Armenian Title', description: 'Armenian title' })
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  title: string;
+  ar_title: string;
 
   @ApiProperty({
     example: 'https://translate.google.com',
