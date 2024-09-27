@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -65,8 +66,8 @@ export class CooperationController {
   async findOne(@Param() param: ParamDTO) {
     return this.cooperationService.findOne(param.id);
   }
-  @UseGuards(JwtAuthGuard)
-  @Post('delete')
+
+  @Delete('delete')
   async delete(@Body() dto: { id: string; image: string }) {
     return this.cooperationService.delete(dto);
   }

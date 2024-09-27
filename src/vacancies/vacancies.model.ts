@@ -1,14 +1,18 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 
-interface UserCreationAttrs {
-  email: string;
-  password: string;
-  fullName: string;
+interface VacanciesCreationAttrs {
+  link: string;
+  ar_title: string;
+  en_title?: string;
+  ru_title?: string;
+  ar_description: string;
+  en_description?: string;
+  ru_description?: string;
 }
 
 @Table({ tableName: 'vacancies' })
-export class Vacancies extends Model<Vacancies, UserCreationAttrs> {
+export class Vacancies extends Model<Vacancies, VacanciesCreationAttrs> {
   @ApiProperty({ example: '1', description: 'unique id' })
   @Column({
     type: DataType.INTEGER,
@@ -23,7 +27,21 @@ export class Vacancies extends Model<Vacancies, UserCreationAttrs> {
     type: DataType.STRING,
     allowNull: false,
   })
-  title: string;
+  ar_title: string;
+
+  @ApiProperty({ example: 'Գլխավոր Ճարտարապետ', description: 'title' })
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  en_title?: string;
+
+  @ApiProperty({ example: 'Գլխավոր Ճարտարապետ', description: 'title' })
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  ru_title?: string;
 
   @ApiProperty({
     example:
@@ -34,7 +52,27 @@ export class Vacancies extends Model<Vacancies, UserCreationAttrs> {
     type: DataType.STRING,
     allowNull: false,
   })
-  description: string;
+  ar_description: string;
+
+  @ApiProperty({
+    example: '',
+    description: 'description',
+  })
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  en_description?: string;
+
+  @ApiProperty({
+    example: '',
+    description: 'description',
+  })
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  ru_description?: string;
 
   @ApiProperty({ example: 'http://test.com', description: 'user full name' })
   @Column({

@@ -2,7 +2,9 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 
 interface CooperationCreationAttrs {
-  title: string;
+  ar_title: string;
+  en_title?: string;
+  ru_title?: string;
   link: string;
   image: string;
 }
