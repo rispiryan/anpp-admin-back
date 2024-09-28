@@ -15,6 +15,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { VacanciesModule } from './vacancies/vacancies.module';
 import * as path from 'path';
 import { Vacancies } from './vacancies/vacancies.model';
+import { EmployeesModule } from './employees/employees.module';
+import { Employees } from './employees/employees.model';
 @Module({
   controllers: [],
   providers: [],
@@ -36,7 +38,7 @@ import { Vacancies } from './vacancies/vacancies.model';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, Cooperation, Vacancies],
+      models: [User, Role, UserRoles, Cooperation, Vacancies, Employees],
       autoLoadModels: true,
       synchronize: true,
     }),
@@ -46,6 +48,7 @@ import { Vacancies } from './vacancies/vacancies.model';
     CooperationModule,
     FilesModule,
     VacanciesModule,
+    EmployeesModule,
   ],
 })
 export class AppModule {}
