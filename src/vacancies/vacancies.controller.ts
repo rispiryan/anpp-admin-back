@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { VacanciesService } from './vacancies.service';
-import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateVacanciesDto } from './dto/create-vacancies.dto';
 import { UpdateVacanciesDto } from './dto/update-cooperation.dto';
@@ -56,6 +56,16 @@ export class VacanciesController {
     return this.vacanciesService.update(dto, param.id);
   }
 
+  @ApiBody({
+    description: 'Delete vacancies with image',
+    schema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string' },
+        image: { type: 'string' },
+      },
+    },
+  })
   @Delete('delete')
   async delete(@Body() dto: { id: string }) {
     return this.vacanciesService.delete(dto);

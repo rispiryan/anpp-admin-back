@@ -37,7 +37,9 @@ export class CooperationController {
     schema: {
       type: 'object',
       properties: {
-        title: { type: 'string' },
+        ar_title: { type: 'string' },
+        en_title: { type: 'string' },
+        ru_title: { type: 'string' },
         link: { type: 'string' },
         image: { type: 'string', format: 'binary' },
       },
@@ -67,6 +69,16 @@ export class CooperationController {
     return this.cooperationService.findOne(param.id);
   }
 
+  @ApiBody({
+    description: 'Delete cooperation with image',
+    schema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string' },
+        image: { type: 'string' },
+      },
+    },
+  })
   @Delete('delete')
   async delete(@Body() dto: { id: string; image: string }) {
     return this.cooperationService.delete(dto);

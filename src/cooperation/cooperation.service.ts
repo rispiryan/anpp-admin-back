@@ -58,7 +58,6 @@ export class CooperationService {
     const deletedCount = await this.cooperationRepository.destroy({
       where: { id },
     });
-
     await this.fileService.deleteFile(image);
     if (deletedCount === 0) {
       throw new Error(`Cooperation with id ${id} not found`);

@@ -103,6 +103,16 @@ export class EmployeesController {
     return this.employeesService.update(dto, image, param.id);
   }
 
+  @ApiBody({
+    description: 'Delete employee with image',
+    schema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string' },
+        image: { type: 'string' },
+      },
+    },
+  })
   @Delete('delete')
   async delete(@Body() dto: { id: string; image: string }) {
     return this.employeesService.delete(dto);

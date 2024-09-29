@@ -55,7 +55,6 @@ export class EmployeesService {
   }
 
   async delete({ id, image }: { id: string; image: string }) {
-    console.log(id, 334);
     const deletedCount = await this.employeesRepository.destroy({
       where: { id },
     });

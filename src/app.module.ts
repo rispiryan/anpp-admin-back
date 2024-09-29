@@ -17,6 +17,8 @@ import * as path from 'path';
 import { Vacancies } from './vacancies/vacancies.model';
 import { EmployeesModule } from './employees/employees.module';
 import { Employees } from './employees/employees.model';
+import { ReportsModule } from './reports/reports.module';
+import { Reports } from './reports/reports.model';
 @Module({
   controllers: [],
   providers: [],
@@ -38,7 +40,15 @@ import { Employees } from './employees/employees.model';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, Cooperation, Vacancies, Employees],
+      models: [
+        User,
+        Role,
+        UserRoles,
+        Cooperation,
+        Vacancies,
+        Employees,
+        Reports,
+      ],
       autoLoadModels: true,
       synchronize: true,
     }),
@@ -49,6 +59,7 @@ import { Employees } from './employees/employees.model';
     FilesModule,
     VacanciesModule,
     EmployeesModule,
+    ReportsModule,
   ],
 })
 export class AppModule {}
