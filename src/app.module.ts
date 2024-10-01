@@ -19,6 +19,7 @@ import { EmployeesModule } from './employees/employees.module';
 import { Employees } from './employees/employees.model';
 import { ReportsModule } from './reports/reports.module';
 import { Reports } from './reports/reports.model';
+import { NewsModule } from './news/news.module';
 @Module({
   controllers: [],
   providers: [],
@@ -60,6 +61,7 @@ import { Reports } from './reports/reports.model';
     VacanciesModule,
     EmployeesModule,
     ReportsModule,
+    NewsModule,
   ],
 })
 export class AppModule {}
