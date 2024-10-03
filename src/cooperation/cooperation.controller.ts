@@ -24,7 +24,6 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ParamDTO, UpdateCooperationDto } from './dto/update-cooperation.dto';
 @ApiBearerAuth('access-token')
 @ApiTags('Cooperation')
-@UseGuards(JwtAuthGuard)
 @Controller('cooperation')
 export class CooperationController {
   constructor(private cooperationService: CooperationService) {}
@@ -45,6 +44,7 @@ export class CooperationController {
       },
     },
   })
+  @UseGuards(JwtAuthGuard)
   @Post('create')
   async createCooperation(
     @Body() dto: CreateCooperationDto,
@@ -79,6 +79,7 @@ export class CooperationController {
       },
     },
   })
+  @UseGuards(JwtAuthGuard)
   @Delete('delete')
   async delete(@Body() dto: { id: string; image: string }) {
     return this.cooperationService.delete(dto);
@@ -103,6 +104,7 @@ export class CooperationController {
     description: 'The ID of the cooperation',
     type: String,
   })
+  @UseGuards(JwtAuthGuard)
   @Patch('update/:id')
   async updateCooperation(
     @Body() dto: UpdateCooperationDto,

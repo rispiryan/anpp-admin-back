@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class UpdateVacanciesDto {
   @ApiProperty({ example: 'ar title', description: 'some title' })
@@ -36,4 +36,9 @@ export class UpdateVacanciesDto {
   @IsString({ message: 'must be a url' })
   @IsOptional()
   readonly link?: string;
+}
+
+export class ParamDTO {
+  @IsNotEmpty()
+  id: string;
 }

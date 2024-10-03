@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import {
@@ -20,6 +21,7 @@ import { EmployeesService } from './employees.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateEmployeesDto } from './dto/create-employees.dto';
 import { ParamDTO, UpdateEmployeesDto } from './dto/update-employees.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiBearerAuth('access-token')
 @ApiTags('Employees')
@@ -63,6 +65,7 @@ export class EmployeesController {
       },
     },
   })
+  @UseGuards(JwtAuthGuard)
   @Post('create')
   async create(@Body() dto: CreateEmployeesDto, @UploadedFile() image) {
     return this.employeesService.create(dto, image);
@@ -94,6 +97,7 @@ export class EmployeesController {
     description: 'The ID of the employee',
     type: String,
   })
+  @UseGuards(JwtAuthGuard)
   @Patch('update/:id')
   async update(
     @Body() dto: UpdateEmployeesDto,
@@ -113,6 +117,7 @@ export class EmployeesController {
       },
     },
   })
+  @UseGuards(JwtAuthGuard)
   @Delete('delete')
   async delete(@Body() dto: { id: string; image: string }) {
     return this.employeesService.delete(dto);

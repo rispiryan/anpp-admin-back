@@ -12,12 +12,10 @@ import { VacanciesService } from './vacancies.service';
 import { ApiBearerAuth, ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateVacanciesDto } from './dto/create-vacancies.dto';
-import { UpdateVacanciesDto } from './dto/update-cooperation.dto';
-import { ParamDTO } from '../cooperation/dto/update-cooperation.dto';
+import { ParamDTO, UpdateVacanciesDto } from './dto/update-vacancies.dto';
 
 @ApiBearerAuth('access-token')
 @ApiTags('Vacancies')
-@UseGuards(JwtAuthGuard)
 @Controller('vacancies')
 export class VacanciesController {
   constructor(private vacanciesService: VacanciesService) {}
@@ -37,6 +35,7 @@ export class VacanciesController {
     return this.vacanciesService.findOne(param.id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('/create')
   async create(@Body() dto: CreateVacanciesDto) {
     return this.vacanciesService.create(dto);
@@ -45,14 +44,12 @@ export class VacanciesController {
   @ApiParam({
     name: 'id',
     required: true,
-    description: 'The ID of the cooperation',
+    description: 'The ID of the vacancies',
     type: String,
   })
+  @UseGuards(JwtAuthGuard)
   @Patch('update/:id')
-  async updateCooperation(
-    @Body() dto: UpdateVacanciesDto,
-    @Param() param: ParamDTO,
-  ) {
+  async update(@Body() dto: UpdateVacanciesDto, @Param() param: ParamDTO) {
     return this.vacanciesService.update(dto, param.id);
   }
 
@@ -66,6 +63,7 @@ export class VacanciesController {
       },
     },
   })
+  @UseGuards(JwtAuthGuard)
   @Delete('delete')
   async delete(@Body() dto: { id: string }) {
     return this.vacanciesService.delete(dto);
