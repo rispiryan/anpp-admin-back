@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Vacancies } from './vacancies.model';
 import { CreateVacanciesDto } from './dto/create-vacancies.dto';
-import { UpdateVacanciesDto } from './dto/update-cooperation.dto';
+import { UpdateVacanciesDto } from './dto/update-vacancies.dto';
 
 @Injectable()
 export class VacanciesService {

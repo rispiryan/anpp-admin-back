@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { News } from './news.model';
 import { CreateCooperationDto } from '../cooperation/dto/create-cooperation.dto';
 import { FilesService } from '../files/files.service';
+import { UpdateEmployeesDto } from '../employees/dto/update-employees.dto';
+import { UpdateNewsDto } from './dto/update-news.dto';
 
 @Injectable()
 export class NewsService {
@@ -67,5 +69,71 @@ export class NewsService {
     }
 
     return await this.findAll();
+  }
+
+  async findOne(id: string) {
+    return await this.newsRepository.findOne({
+      rejectOnEmpty: undefined,
+      where: { id },
+    });
+  }
+
+  async update(dto: UpdateNewsDto, files: any, id: string) {
+    const { image, contentImages1, contentImages2, deletedFiles, ...res } = dto;
+    const newImage = [];
+    const newContentImages1 = [];
+    const newContentImages2 = [];
+    const news = await this.newsRepository.findByPk(id);
+
+    if (deletedFiles?.length) {
+      for (const file of deletedFiles) {
+        await this.fileService.deleteFile(file);
+      }
+    }
+
+    if (!news) {
+      throw new Error(`employee with id ${id} not found`);
+    }
+
+    if (image?.length) {
+      newImage.push(image);
+    }
+    if (contentImages1?.length) {
+      newContentImages1.push(contentImages1);
+    }
+    if (contentImages2?.length) {
+      newContentImages2.push(contentImages2);
+    }
+
+    await Promise.all(
+      files.map(async (file) => {
+        const fileName = await this.fileService.createFile(file);
+        if (file.fieldname === 'contentImages1[]') {
+          newContentImages1.push(fileName);
+        }
+        if (file.fieldname === 'contentImages2[]') {
+          newContentImages2.push(fileName);
+        }
+        if (file.fieldname === 'image[]') {
+          newImage.push(fileName);
+        }
+      }),
+    );
+
+    await this.newsRepository.update(
+      {
+        ...res,
+        contentImages2: newContentImages2.length
+          ? newContentImages2.join(',')
+          : '',
+        contentImages1: newContentImages1.length
+          ? newContentImages1.join(',')
+          : '',
+        image: newImage.length ? newImage.join(',') : '',
+      },
+      { returning: undefined, where: { id } },
+    );
+
+    return await this.newsRepository.findByPk(id);
   }
 }

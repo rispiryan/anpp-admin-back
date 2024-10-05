@@ -3,15 +3,26 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
+  Patch,
   Post,
+  UploadedFile,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { NewsService } from './news.service';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ParamDTO, UpdateNewsDto } from './dto/update-news.dto';
+import { CreateNewsDto } from './dto/create-news.dto';
 
 @ApiBearerAuth('access-token')
 @ApiTags('News')
@@ -19,7 +30,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class NewsController {
   constructor(private newsService: NewsService) {}
 
-  @UseInterceptors(AnyFilesInterceptor()) // Use this to handle multiple file arrays
+  @UseInterceptors(AnyFilesInterceptor())
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     description: 'Create cooperation with images',
@@ -45,13 +56,24 @@ export class NewsController {
   })
   @UseGuards(JwtAuthGuard)
   @Post('create')
-  async create(@Body() dto: any, @UploadedFiles() files) {
+  async create(@Body() dto: CreateNewsDto, @UploadedFiles() files) {
     return this.newsService.create(dto, files);
   }
 
   @Get()
   async findAll() {
     return this.newsService.findAll();
+  }
+
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'The ID of the news',
+    type: String,
+  })
+  @Get('/:id')
+  async findOne(@Param() param: ParamDTO) {
+    return this.newsService.findOne(param.id);
   }
 
   @ApiBody({
@@ -68,5 +90,17 @@ export class NewsController {
   @Delete('delete')
   async delete(@Body() dto: { id: string; deletedImages: string }) {
     return this.newsService.delete(dto);
+  }
+
+  @UseInterceptors(AnyFilesInterceptor())
+  @ApiConsumes('multipart/form-data')
+  @UseGuards(JwtAuthGuard)
+  @Patch('update/:id')
+  async update(
+    @Body() dto: UpdateNewsDto,
+    @Param() param: ParamDTO,
+    @UploadedFiles() files,
+  ) {
+    return this.newsService.update(dto, files, param.id);
   }
 }
