@@ -20,6 +20,8 @@ import { Employees } from './employees/employees.model';
 import { ReportsModule } from './reports/reports.module';
 import { Reports } from './reports/reports.model';
 import { NewsModule } from './news/news.module';
+import { EventsModule } from './events/events.module';
+import { Events } from './events/events.model';
 @Module({
   controllers: [],
   providers: [],
@@ -49,6 +51,7 @@ import { NewsModule } from './news/news.module';
         Vacancies,
         Employees,
         Reports,
+        Events,
       ],
       autoLoadModels: true,
       synchronize: true,
@@ -62,6 +65,7 @@ import { NewsModule } from './news/news.module';
     EmployeesModule,
     ReportsModule,
     NewsModule,
+    EventsModule,
   ],
 })
 export class AppModule {}

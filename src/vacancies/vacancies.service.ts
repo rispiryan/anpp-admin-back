@@ -27,8 +27,8 @@ export class VacanciesService {
   }
 
   async update(dto: UpdateVacanciesDto, id: string) {
-    const cooperation = await this.vacanciesRepository.findByPk(id);
-    if (!cooperation) {
+    const vacancy = await this.vacanciesRepository.findByPk(id);
+    if (!vacancy) {
       throw new Error(`Vacancy with id ${id} not found`);
     }
 
