@@ -58,7 +58,7 @@ export class EventsService {
     const deletedCount = await this.eventsRepository.destroy({
       where: { id },
     });
-    console.log(image, 3443);
+
     await this.fileService.deleteFile(image);
     if (deletedCount === 0) {
       throw new Error(`Events with id ${id} not found`);

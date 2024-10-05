@@ -17,37 +17,37 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { EventsService } from './events.service';
-import { ParamDTO, UpdateEventsDto } from './dto/update-events.dto';
-import { CreateEventsDto } from './dto/create-events.dto';
+import { ShoppingService } from './shopping.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ParamDTO, UpdateShoppingDto } from './dto/update-shopping.dto';
+import { CreateShoppingDto } from './dto/create-shopping.dto';
 
 @ApiBearerAuth('access-token')
-@ApiTags('Events')
-@Controller('events')
-export class EventsController {
-  constructor(private eventsService: EventsService) {}
+@ApiTags('Shopping')
+@Controller('shopping')
+export class ShoppingController {
+  constructor(private shoppingService: ShoppingService) {}
   @Get('/')
   async findAll() {
-    return this.eventsService.findAll();
+    return this.shoppingService.findAll();
   }
 
   @ApiParam({
     name: 'id',
     required: true,
-    description: 'The ID of the events',
+    description: 'The ID of the shopping',
     type: String,
   })
   @Get('/:id')
   async findOne(@Param() param: ParamDTO) {
-    return this.eventsService.findOne(param.id);
+    return this.shoppingService.findOne(param.id);
   }
 
   @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
   @ApiBody({
-    description: 'Create events with image',
+    description: 'Create shopping with image',
     schema: {
       type: 'object',
       properties: {
@@ -64,14 +64,14 @@ export class EventsController {
   })
   @UseGuards(JwtAuthGuard)
   @Post('/create')
-  async create(@Body() dto: CreateEventsDto, @UploadedFile() image) {
-    return this.eventsService.create(dto, image);
+  async create(@Body() dto: CreateShoppingDto, @UploadedFile() image) {
+    return this.shoppingService.create(dto, image);
   }
 
   @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
   @ApiBody({
-    description: 'Update events with image',
+    description: 'Update shopping with image',
     schema: {
       type: 'object',
       properties: {
@@ -89,21 +89,21 @@ export class EventsController {
   @ApiParam({
     name: 'id',
     required: true,
-    description: 'The ID of the events',
+    description: 'The ID of the shopping',
     type: String,
   })
   @UseGuards(JwtAuthGuard)
   @Patch('update/:id')
   async update(
-    @Body() dto: UpdateEventsDto,
+    @Body() dto: UpdateShoppingDto,
     @Param() param: ParamDTO,
     @UploadedFile() image,
   ) {
-    return this.eventsService.update(dto, image, param.id);
+    return this.shoppingService.update(dto, image, param.id);
   }
 
   @ApiBody({
-    description: 'Delete events with image',
+    description: 'Delete shopping with image',
     schema: {
       type: 'object',
       properties: {
@@ -115,6 +115,6 @@ export class EventsController {
   @UseGuards(JwtAuthGuard)
   @Delete('delete')
   async delete(@Body() dto: { id: string; image: string }) {
-    return this.eventsService.delete(dto);
+    return this.shoppingService.delete(dto);
   }
 }

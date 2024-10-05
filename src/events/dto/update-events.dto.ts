@@ -17,17 +17,17 @@ export class UpdateEventsDto {
   @IsOptional()
   readonly ru_title?: string;
 
-  @ApiProperty({ example: 'ar description', description: 'some title' })
+  @ApiProperty({ example: 'ar description', description: 'some description' })
   @IsString({ message: 'must be a string' })
   @IsOptional()
   readonly ar_description?: string;
 
-  @ApiProperty({ example: 'en description', description: 'some title' })
+  @ApiProperty({ example: 'en description', description: 'some description' })
   @IsString({ message: 'must be a string' })
   @IsOptional()
   readonly en_description?: string;
 
-  @ApiProperty({ example: 'ru description', description: 'some title' })
+  @ApiProperty({ example: 'ru description', description: 'some description' })
   @IsString({ message: 'must be a string' })
   @IsOptional()
   readonly ru_description?: string;
