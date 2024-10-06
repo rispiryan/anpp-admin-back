@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { News } from './news.model';
-import { CreateCooperationDto } from '../cooperation/dto/create-cooperation.dto';
 import { FilesService } from '../files/files.service';
-import { UpdateEmployeesDto } from '../employees/dto/update-employees.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
+import { CreateNewsDto } from './dto/create-news.dto';
 
 @Injectable()
 export class NewsService {
@@ -13,7 +12,7 @@ export class NewsService {
     private fileService: FilesService,
   ) {}
 
-  async create(dto: any, files: any[]) {
+  async create(dto: CreateNewsDto, files: any[]) {
     if (files.length) {
       let image = '';
       let contentImages1 = '';
@@ -65,7 +64,7 @@ export class NewsService {
       await this.fileService.deleteFile(image);
     }
     if (deletedCount === 0) {
-      throw new Error(`Cooperation with id ${id} not found`);
+      throw new Error(`News with id ${id} not found`);
     }
 
     return await this.findAll();

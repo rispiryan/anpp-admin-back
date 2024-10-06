@@ -24,6 +24,8 @@ import { EventsModule } from './events/events.module';
 import { Events } from './events/events.model';
 import { ShoppingModule } from './shopping/shopping.module';
 import { Shopping } from './shopping/shopping.model';
+import { DepartmentModule } from './department/department.module';
+import { Department } from './department/department.model';
 @Module({
   controllers: [],
   providers: [],
@@ -55,6 +57,7 @@ import { Shopping } from './shopping/shopping.model';
         Reports,
         Events,
         Shopping,
+        Department,
       ],
       autoLoadModels: true,
       synchronize: true,
@@ -70,6 +73,7 @@ import { Shopping } from './shopping/shopping.model';
     NewsModule,
     EventsModule,
     ShoppingModule,
+    DepartmentModule,
   ],
 })
 export class AppModule {}

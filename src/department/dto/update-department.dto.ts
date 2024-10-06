@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, Length } from 'class-validator';
 
-export class UpdateNewsDto {
+export class UpdateDepartmentDto {
   @ApiProperty({ example: 'ar title', description: 'some title' })
   @IsString({ message: 'must be a string' })
   @IsOptional()
@@ -20,21 +20,7 @@ export class UpdateNewsDto {
   @ApiProperty({ example: 'ar title', description: 'some title' })
   @IsString({ message: 'must be a string' })
   @IsOptional()
-  readonly ar_description: string;
-
-  @ApiProperty({ example: 'en title', description: 'some title' })
-  @IsString({ message: 'must be a string' })
-  @IsOptional()
-  readonly en_description: string;
-
-  @ApiProperty({ example: 'ru title', description: 'some title' })
-  @IsString({ message: 'must be a string' })
-  @IsOptional()
-  readonly ru_description: string;
-
-  @ApiProperty({ example: 'ar title', description: 'some title' })
-  @IsString({ message: 'must be a string' })
-  @IsOptional()
+  @Length(0, 160000, { message: 'no less 4 no more 16' })
   readonly ar_content1: string;
 
   @ApiProperty({ example: 'en title', description: 'some title' })
@@ -77,9 +63,14 @@ export class UpdateNewsDto {
   @IsOptional()
   readonly ru_content3: string;
 
-  readonly image: any;
+  @ApiProperty({ example: 'production_department', description: 'some slug' })
+  @IsString({ message: 'must be a string' })
+  @IsOptional()
+  readonly slug: string;
+
   readonly contentImages1: any;
   readonly contentImages2: any;
+  readonly attachedFiles: any;
   readonly deletedFiles: any;
 }
 

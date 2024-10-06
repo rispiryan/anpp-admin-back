@@ -6,7 +6,6 @@ import {
   Param,
   Patch,
   Post,
-  UploadedFile,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -33,7 +32,7 @@ export class NewsController {
   @UseInterceptors(AnyFilesInterceptor())
   @ApiConsumes('multipart/form-data')
   @ApiBody({
-    description: 'Create cooperation with images',
+    description: 'Create news with images',
     schema: {
       type: 'object',
       properties: {
@@ -77,12 +76,12 @@ export class NewsController {
   }
 
   @ApiBody({
-    description: 'Delete cooperation with image',
+    description: 'Delete news with image',
     schema: {
       type: 'object',
       properties: {
         id: { type: 'string' },
-        image: { type: 'string' },
+        deletedImages: { type: 'string' },
       },
     },
   })
