@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
@@ -28,9 +28,12 @@ import { DepartmentModule } from './department/department.module';
 import { Department } from './department/department.model';
 import { EducationModule } from './education/education.module';
 import { Education } from './education/education.model';
+import { storageProvider } from './providers/storage.p';
+import { StorageMiddleware } from './middelware/storage.m';
+
 @Module({
   controllers: [],
-  providers: [],
+  providers: [storageProvider],
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
@@ -80,4 +83,8 @@ import { Education } from './education/education.model';
     EducationModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(StorageMiddleware).forRoutes('*');
+  }
+}
