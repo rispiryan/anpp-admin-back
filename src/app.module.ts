@@ -36,7 +36,7 @@ import { Education } from './education/education.model';
       envFilePath: `.${process.env.NODE_ENV}.env`,
     }),
     ServeStaticModule.forRoot({
-      rootPath: path.resolve(__dirname, 'static'),
+      rootPath: path.resolve('src', 'static'),
     }),
     SequelizeModule.forRoot({
       // TODO remember to delete it after correct deployment

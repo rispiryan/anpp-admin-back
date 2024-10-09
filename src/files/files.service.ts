@@ -10,7 +10,7 @@ export class FilesService {
       const fileExtension = this.getFileExtension(file.mimetype);
       const fileName =
         file.originalname + '@' + file.size + '@' + uuidv4() + fileExtension;
-      const filePath = path.resolve(__dirname, '..', 'static');
+      const filePath = path.resolve('src', 'static');
 
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });
@@ -28,7 +28,7 @@ export class FilesService {
 
   async deleteFile(fileName: string): Promise<void> {
     try {
-      const filePath = path.resolve(__dirname, '..', 'static', fileName);
+      const filePath = path.resolve('src', 'static', fileName);
 
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
