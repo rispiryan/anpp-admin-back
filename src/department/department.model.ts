@@ -54,7 +54,7 @@ export class Department extends Model<Department, DepartmentCreationAttrs> {
 
   @ApiProperty({ example: 'Armenian Title', description: 'Armenian title' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   ar_content1: string;
@@ -64,7 +64,7 @@ export class Department extends Model<Department, DepartmentCreationAttrs> {
     description: 'English content1',
   })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   en_content1: string;
@@ -74,7 +74,7 @@ export class Department extends Model<Department, DepartmentCreationAttrs> {
     description: 'Russia content1',
   })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   ru_content1: string;
@@ -84,7 +84,7 @@ export class Department extends Model<Department, DepartmentCreationAttrs> {
     description: 'English content1',
   })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   ar_content2: string;
@@ -94,7 +94,7 @@ export class Department extends Model<Department, DepartmentCreationAttrs> {
     description: 'English content2',
   })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   en_content2: string;
@@ -104,7 +104,7 @@ export class Department extends Model<Department, DepartmentCreationAttrs> {
     description: 'Russia content2',
   })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   ru_content2: string;
@@ -114,7 +114,7 @@ export class Department extends Model<Department, DepartmentCreationAttrs> {
     description: 'English content3',
   })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   ar_content3: string;
@@ -124,7 +124,7 @@ export class Department extends Model<Department, DepartmentCreationAttrs> {
     description: 'English content3',
   })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   en_content3: string;
@@ -134,7 +134,7 @@ export class Department extends Model<Department, DepartmentCreationAttrs> {
     description: 'Russia content3',
   })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   ru_content3: string;

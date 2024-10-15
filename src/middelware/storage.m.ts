@@ -19,10 +19,15 @@ export class StorageMiddleware implements NestMiddleware {
   ) {}
   use(req: any, res: Response, next: NextFunction) {
     const token: any = req?.headers?.authorization;
+    if (!token) {
+      return next();
+    }
+
     const session = this.storageService.get(token);
     if (!session) {
       this.storageService.set(token, new Date());
     }
+
     if (session && token) {
       const dif = DateDiff(new Date(), new Date(session));
 

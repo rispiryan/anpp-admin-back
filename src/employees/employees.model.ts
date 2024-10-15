@@ -69,21 +69,21 @@ export class Employees extends Model<Employees, EmployeesCreationAttrs> {
 
   @ApiProperty({ example: 'ar Content', description: 'ar Content' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: false,
   })
   ar_content: string;
 
   @ApiProperty({ example: 'en Content', description: 'en Content' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   en_content: string;
 
   @ApiProperty({ example: 'ru Content', description: 'ru Content' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   ru_content: string;
