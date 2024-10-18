@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -60,8 +61,9 @@ export class NewsController {
   }
 
   @Get()
-  async findAll() {
-    return this.newsService.findAll();
+  async findAll(@Query('limit') limit?: number) {
+    console.log(limit, 'limit');
+    return this.newsService.findAll(+limit);
   }
 
   @ApiParam({

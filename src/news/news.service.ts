@@ -48,9 +48,10 @@ export class NewsService {
     return 'error';
   }
 
-  async findAll() {
+  async findAll(limit?: number) {
     return await this.newsRepository.findAll({
       order: [['createdAt', 'DESC']],
+      ...(!!limit && { limit: limit }),
     });
   }
 
