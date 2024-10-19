@@ -53,7 +53,7 @@ export class Cooperation extends Model<Cooperation, CooperationCreationAttrs> {
 
   @ApiProperty({ example: '', description: 'image' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: false,
   })
   image: string;

@@ -83,7 +83,7 @@ export class Events extends Model<Events, EventsCreationAttrs> {
 
   @ApiProperty({ example: '', description: 'image' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: false,
   })
   image: string;

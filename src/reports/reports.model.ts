@@ -26,7 +26,7 @@ export class Reports extends Model<Reports, ReportsCreationAttrs> {
 
   @ApiProperty({ example: '', description: 'pdf' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: false,
   })
   file: string;

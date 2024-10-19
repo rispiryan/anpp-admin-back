@@ -170,21 +170,21 @@ export class Education extends Model<Education, EducationCreationAttrs> {
 
   @ApiProperty({ example: '', description: 'image' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: false,
   })
   image: string;
 
   @ApiProperty({ example: '', description: 'contentImages1' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: false,
   })
   contentImages1: string;
 
   @ApiProperty({ example: '', description: 'contentImages2' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: false,
   })
   contentImages2: string;
