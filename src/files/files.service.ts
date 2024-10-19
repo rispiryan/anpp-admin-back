@@ -9,7 +9,15 @@ export class FilesService {
     try {
       const fileExtension = this.getFileExtension(file.mimetype);
       const fileName =
-        file.originalname + '@' + file.size + '@' + uuidv4() + fileExtension;
+        file.originalname +
+        '@' +
+        file.size +
+        '@' +
+        uuidv4() +
+        '@' +
+        new Date().toISOString() +
+        '@' +
+        fileExtension;
       const filePath = path.resolve('src', 'static');
 
       if (!fs.existsSync(filePath)) {

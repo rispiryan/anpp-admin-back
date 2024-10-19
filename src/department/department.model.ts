@@ -141,21 +141,21 @@ export class Department extends Model<Department, DepartmentCreationAttrs> {
 
   @ApiProperty({ example: '', description: 'image' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   attachedFiles: string;
 
   @ApiProperty({ example: '', description: 'contentImages1' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   contentImages1: string;
 
   @ApiProperty({ example: '', description: 'contentImages2' })
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: true,
   })
   contentImages2: string;

@@ -18,9 +18,16 @@ export class DepartmentService {
   }
 
   async findOne(id: string) {
+    const where: any = {};
+
+    if (!isNaN(Number(id))) {
+      where.id = id;
+    } else {
+      where.slug = id;
+    }
     const department = await this.departmentRepository.findOne({
       rejectOnEmpty: undefined,
-      where: { id },
+      where,
     });
 
     if (department) {
@@ -107,7 +114,7 @@ export class DepartmentService {
         if (file.fieldname === 'contentImages2[]') {
           newContentImages2.push(fileName);
         }
-        if (file.fieldname === 'image[]') {
+        if (file.fieldname === 'attachedFiles[]') {
           newAttachedFiles.push(fileName);
         }
       }),
