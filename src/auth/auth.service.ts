@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
@@ -15,10 +10,13 @@ export class AuthService {
   constructor(
     private userService: UsersService,
     private jwtService: JwtService,
+    @Inject('STORAGE') private readonly storageService: Map<string, any>,
   ) {}
   async login(userDto: GetUserDtoUserDto) {
     const user = await this.validateUser(userDto);
     const { authToken } = await this.generateToken(user);
+    this.storageService.set(authToken, new Date());
+
     return {
       authToken,
       user: {
@@ -27,6 +25,9 @@ export class AuthService {
         id: user.id,
       },
     };
+  }
+  async logOuh(token: string) {
+    this.storageService.delete(token);
   }
   async registration(userDto: CreateUserDto) {
     const condidate = await this.userService.getUserByEmail(userDto.email);

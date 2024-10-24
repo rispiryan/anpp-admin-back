@@ -79,6 +79,6 @@ import { StorageMiddleware } from './middelware/storage.m';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(StorageMiddleware).forRoutes('*');
+    consumer.apply(StorageMiddleware).exclude('/login').forRoutes('*');
   }
 }

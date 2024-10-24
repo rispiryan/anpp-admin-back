@@ -18,18 +18,22 @@ export class StorageMiddleware implements NestMiddleware {
     @Inject('STORAGE') private readonly storageService: Map<string, any>,
   ) {}
   use(req: any, res: Response, next: NextFunction) {
-    const token: any = req?.headers?.authorization;
+    const token: any = req?.headers?.authorization?.split(' ')[1];
     if (!token || token.length < 10) {
       return next();
     }
 
     const session = this.storageService.get(token);
-    if (!session) {
+    if (!session && token) {
       this.storageService.set(token, new Date());
+    }
+    if (!session) {
+      throw new UnauthorizedException({
+        message: 'user is not authorized',
+      });
     }
     if (session && token) {
       const dif = DateDiff(new Date(), new Date(session));
-
       if (dif >= 10) {
         this.storageService.delete(token);
         throw new UnauthorizedException({

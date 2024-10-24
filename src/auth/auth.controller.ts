@@ -16,4 +16,8 @@ export class AuthController {
   registration(@Body() userDto: CreateUserDto) {
     return this.authService.registration(userDto);
   }
+  @Post('/logout')
+  logOut(@Body() userDto: { token: string }) {
+    return this.authService.logOuh(userDto.token);
+  }
 }

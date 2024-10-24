@@ -4,10 +4,11 @@ import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import * as process from 'process';
+import { storageProvider } from '../providers/storage.p';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, storageProvider],
   imports: [
     forwardRef(() => UsersModule),
     JwtModule.register({
