@@ -62,7 +62,6 @@ export class NewsController {
 
   @Get()
   async findAll(@Query('limit') limit?: number) {
-    console.log(limit, 'limit');
     return this.newsService.findAll(+limit);
   }
 

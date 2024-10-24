@@ -4,9 +4,6 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import * as process from 'process';
 import { User } from './users/users.model';
-import { RolesModule } from './roles/roles.module';
-import { Role } from './roles/roles.model';
-import { UserRoles } from './roles/user-roles.model';
 import { AuthModule } from './auth/auth.module';
 import { CooperationModule } from './cooperation/cooperation.module';
 import { Cooperation } from './cooperation/cooperation.model';
@@ -54,8 +51,6 @@ import { StorageMiddleware } from './middelware/storage.m';
       database: process.env.POSTGRES_DB,
       models: [
         User,
-        Role,
-        UserRoles,
         Cooperation,
         Vacancies,
         Employees,
@@ -66,10 +61,9 @@ import { StorageMiddleware } from './middelware/storage.m';
         Education,
       ],
       autoLoadModels: true,
-      synchronize: true,
+      synchronize: false,
     }),
     UsersModule,
-    RolesModule,
     AuthModule,
     CooperationModule,
     FilesModule,

@@ -25,7 +25,6 @@ export class AuthService {
         email: user.email,
         fullName: user.fullName,
         id: user.id,
-        role: user.roles,
       },
     };
   }
@@ -46,7 +45,6 @@ export class AuthService {
     const payload = {
       email: user.email,
       id: user.id,
-      roles: user.roles,
       fullName: user.fullName,
     };
 
