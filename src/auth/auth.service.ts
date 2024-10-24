@@ -66,6 +66,10 @@ export class AuthService {
     if (user && passwordEquals) {
       return user;
     }
-    throw new UnauthorizedException({ message: 'incorrect password or email' });
+
+    throw new HttpException(
+      'incorrect password or email',
+      HttpStatus.BAD_REQUEST,
+    );
   }
 }

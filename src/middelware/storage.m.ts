@@ -27,7 +27,6 @@ export class StorageMiddleware implements NestMiddleware {
     if (!session) {
       this.storageService.set(token, new Date());
     }
-    console.log(token, 23);
     if (session && token) {
       const dif = DateDiff(new Date(), new Date(session));
 

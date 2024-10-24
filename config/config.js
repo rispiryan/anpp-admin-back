@@ -1,6 +1,6 @@
 const { resolve } = require('path');
 
-process.loadEnvFile(resolve('./.production.env'));
+process.loadEnvFile(resolve('./.development.env'));
 console.log(
   {
     dialect: 'postgres',
