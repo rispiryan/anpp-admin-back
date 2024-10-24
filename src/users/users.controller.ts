@@ -7,10 +7,10 @@ import {
   Req,
   // UsePipes,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import {
   ApiBearerAuth,
+  ApiBody,
   ApiOperation,
   ApiResponse,
   ApiTags,
@@ -23,13 +23,13 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 @Controller('users')
 export class UsersController {
   constructor(private userService: UsersService) {}
-  @ApiOperation({ summary: 'User creation' })
-  @ApiResponse({ status: 200, type: User })
-  // @UsePipes(ValidationPipe)
-  @Post()
-  create(@Body() userDto: CreateUserDto) {
-    return this.userService.createUser(userDto);
-  }
+  // @ApiOperation({ summary: 'User creation' })
+  // @ApiResponse({ status: 200, type: User })
+  // // @UsePipes(ValidationPipe)
+  // @Post()
+  // create(@Body() userDto: CreateUserDto) {
+  //   return this.userService.createUser(userDto);
+  // }
 
   @ApiOperation({ summary: 'Get users' })
   @ApiResponse({ status: 200, type: [User] })
@@ -44,5 +44,21 @@ export class UsersController {
   profile(@Req() request) {
     const user = request.user;
     return this.userService.profile(user);
+  }
+
+  @ApiBody({
+    description: 'change password',
+    schema: {
+      type: 'object',
+      properties: {
+        password: { type: 'string' },
+      },
+    },
+  })
+  @UseGuards(JwtAuthGuard)
+  @Post('/change-password')
+  changePassword(@Req() request, @Body() passwordDto: { password: string }) {
+    const user = request.user;
+    return this.userService.changePassword(user, passwordDto);
   }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
-
+import * as bcrypt from 'bcryptjs';
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User) private userRepository: typeof User) {}
@@ -25,5 +25,16 @@ export class UsersService {
 
   async profile(user) {
     return user;
+  }
+  async changePassword(req, passwordDto: { password: string }) {
+    const hashedPassword = await bcrypt.hash(passwordDto.password, 10);
+    const user = await this.userRepository.findOne({
+      rejectOnEmpty: undefined,
+      where: { email: req.email },
+      include: { all: true },
+    });
+    user.password = hashedPassword;
+    await user.save();
+    return { message: 'Password changed successfully' };
   }
 }
